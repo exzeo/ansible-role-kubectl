@@ -1,7 +1,7 @@
 ---
 
 # Version of 'kubectl' to install, defaults to latest version
-kubectl_version: "1.21.2"
+kubectl_version: ""
 
 # Toggling this will uninstall from the server
 uninstall: false

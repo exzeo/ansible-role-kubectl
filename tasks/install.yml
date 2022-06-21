@@ -7,7 +7,27 @@
   tags:
     - install
     - check-current-version
-  
+
+- name: Get Latest Version
+  ansible.builtin.uri:
+    url: "{{ kubectl_latest_url }}"
+    return_content: true
+  register: kubectl_latest_info
+  changed_when: false
+  retries: 5
+  delay: 2
+  when: kubectl_version|length == 0
+  tags:
+    - install
+    - get-latest-version
+
+- name: Set Latest Version # noqa no-handler
+  ansible.builtin.set_fact:
+    kubectl_version: "{{ kubectl_latest_info.content | replace('v','') }}"
+  when: kubectl_version|length == 0
+  tags:
+    - install
+    - set-latest-version
 
 - name: Download kubectl archive # noqa no-handler
   ansible.builtin.get_url:
