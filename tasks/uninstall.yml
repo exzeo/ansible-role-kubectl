@@ -1,0 +1,7 @@
+---
+- name: Remove {{ kubectl_bin_directory }}/kubectl
+  ansible.builtin.file:
+    path: "{{ kubectl_bin_directory }}/kubectl"
+    state: absent
+  tags:
+    - uninstall

@@ -1,0 +1,10 @@
+---
+
+# Version of 'kubectl' to install, defaults to latest version
+kubectl_version: ""
+
+# Toggling this will uninstall from the server
+uninstall: false
+
+# Where to install "kubectl" binary
+kubectl_bin_directory: "/usr/local/bin"
