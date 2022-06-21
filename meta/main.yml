@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-  role_name: helm
+  role_name: kubectl
   author: exzeo
   description: Ansible Role for installing kubectl
   company: "Exzeo"
