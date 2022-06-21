@@ -1,0 +1,13 @@
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: Execute kubectl version to capture output
+      command: "kubectl version --client"
+      register: kubectl_current_version
+      changed_when: false
+
+    - name: Ensure kubectl version output contains correct version string
+      assert:
+        that:
+          - kubectl_current_version.rc == 0

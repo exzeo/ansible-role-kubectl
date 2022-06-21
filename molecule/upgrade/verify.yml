@@ -1,0 +1,17 @@
+- name: Verify
+  hosts: all
+  tasks:
+  
+  - name: Check kubectl version
+    command: "kubectl version --client"
+    register: kubectl_current_version
+
+  - name: Ensure kubectl is installed
+    assert:
+      that:
+        - kubectl_current_version.rc == 0
+
+  - name: Ensure kubectl is correct version
+    assert:
+      that:
+        - "'v1.21.3' in kubectl_current_version.stdout"

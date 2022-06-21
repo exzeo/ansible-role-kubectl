@@ -1,0 +1,24 @@
+---
+- name: Check current kubectl version.
+  ansible.builtin.command: "kubectl version --client"
+  register: kubectl_current_version
+  changed_when: kubectl_current_version.rc != 0 or (kubectl_version != "" and kubectl_version not in kubectl_current_version.stdout)
+  failed_when: false
+  tags:
+    - install
+    - check-current-version
+  
+
+- name: Download kubectl archive # noqa no-handler
+  ansible.builtin.get_url:
+    url: "{{ kubectl_download_url }}"
+    dest: "{{ kubectl_bin_directory }}/kubectl"
+    mode: '0755'
+  register: download_archive
+  retries: 5
+  delay: 2
+  until: download_archive is success
+  when: kubectl_current_version.changed
+  tags:
+    - install
+    - download-archive
